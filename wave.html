@@ -1,0 +1,152 @@
+<html>
+<style>
+.container {
+  position: relative;
+  width: 10em;
+  height: 10em;
+  font-size: 50px;
+  overflow: hidden;
+}
+.wrapper {
+	height: 10em;
+	background-color: rgb(255,0,0);
+	width: 10em;
+
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	vertical-align: middle;
+	z-index: 1;
+	will-change: opacity, transform;
+}
+
+.wrapper1 {
+	height: 10em;
+	background-color: rgb(0,255,0);
+	width: 10em;
+
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+	overflow: hidden;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	vertical-align: middle;
+	z-index: 1;
+	will-change: opacity, transform;
+	-webkit-transition: all 2s ease-out;
+	-moz-transition: all 2s ease-out;
+	-o-transition: all 2s ease-out;
+	-ms-transition: all 2s ease-out;
+	transition: all 2s ease-out;
+}
+
+.waves-ripple {
+	position: absolute;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	margin-top: -10px;
+	margin-left: -10px;
+	opacity: 0;
+	background: rgba(0, 0, 0, 0.2);
+	-webkit-transition: all 2s ease-out;
+	-moz-transition: all 2s ease-out;
+	-o-transition: all 2s ease-out;
+	-ms-transition: all 2s ease-out;
+	transition: all 2s ease-out;
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	-ms-transform: scale(0);
+	-o-transform: scale(0);
+	transform: scale(0);
+	-webkit-transition-property: -webkit-transform, opacity;
+	-moz-transition-property: -moz-transform, opacity;
+	-o-transition-property: -o-transform, opacity;
+	transition-property: transform, opacity;
+	pointer-events: none;
+}
+.waves-notransition {
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	-o-transition: none !important;
+	-ms-transition: none !important;
+	transition: none !important
+}
+</style>
+<script type="text/javascript" src="jquery-1.11.2.min.js"></script>
+<script type="text/javascript">
+	$("document").ready(function(){
+		$(".wrapper1").bind("click", function(event) {	
+			var f = document.createElement("div");
+			f.className = "waves-ripple";
+			$(this).append(f);
+			setTimeout(function() {
+				// transform写在setTimeout没有transition效果
+				f.setAttribute("style","transform: scale(10);opacity: 1;")
+			}, 1)
+			
+		});
+		$(".wrapper").bind("mousemove", function(event) {
+			// console.log(event);
+		});
+		$(".wrapper").bind("click", function(event) {
+			var f = document.createElement("div");
+
+			document.getElementsByClassName("wrapper")[0].getBoundingClientRect().top
+			
+			console.log(event);
+			console.log(document.getElementsByClassName("wrapper")[0].getBoundingClientRect());
+
+			var top = event.pageY - (document.getElementsByClassName("wrapper")[0].getBoundingClientRect().top + document.getElementsByClassName("wrapper")[0].ownerDocument.defaultView.pageYOffset - document.getElementsByClassName("wrapper")[0].ownerDocument.documentElement.clientTop) + "px";
+
+			var left = event.pageX - (document.getElementsByClassName("wrapper")[0].getBoundingClientRect().left + document.getElementsByClassName("wrapper")[0].ownerDocument.defaultView.pageXOffset - document.getElementsByClassName("wrapper")[0].ownerDocument.documentElement.clientLeft) + "px";
+
+
+			console.log(top);
+			console.log(left);
+
+			var scale = document.getElementsByClassName("wrapper")[0].clientWidth / 100 * 5 
+			f.className = "waves-ripple";
+			$(this).append(f);
+			f.className = f.className + " waves-notransition", 
+			f.setAttribute("style", "top:"+top+";left:"+left+";");
+			setTimeout(function() {
+				f.className = f.className.replace("waves-notransition", ""), 
+				f.setAttribute("style", "top:"+top+";left:"+left+";"
+					+"-webkit-transform: scale("+scale+");"
+					+"-moz-transform: scale("+scale+");"
+					+"-ms-transform: scale("+scale+");"
+					+"-o-transform: scale("+scale+");"
+					+"transform: scale("+scale+");"
+					+"opacity: 1;"
+					+"-webkit-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);"
+					+"-moz-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);"
+					+"-o-transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);"
+					+"transition-timing-function: cubic-bezier(0.250, 0.460, 0.450, 0.940);");
+				
+			}, 100)
+		});
+			
+	});
+</script>
+<body>
+<div class="container">
+<div class="wrapper">
+</div>
+
+
+</div>
+<div class="wrapper1">
+</div>
+</body>
+</html>
